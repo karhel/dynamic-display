@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/*
+ * All requests will be routed to the main view (SPA in VueJS)
+ */
 Route::get('/{uri?}', function () {
     return view('main');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
