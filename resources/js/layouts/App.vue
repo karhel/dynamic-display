@@ -17,9 +17,9 @@
             <router-link
               class="nav-link"
               data-toggle="collapse"
-              :to="{ name: 'home' }"
+              :to="{ name: 'dashboard' }"
             >
-              Home
+              Dashboard
             </router-link>
           </li>
 
@@ -27,9 +27,9 @@
             <router-link
               class="nav-link"
               data-toggle="collapse"
-              :to="{ name: 'about' }"
+              :to="{ name: 'login' }"
             >
-              About
+              Login
             </router-link>
           </li>
         </ul>
