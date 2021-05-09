@@ -2019,7 +2019,7 @@ __webpack_require__.r(__webpack_exports__);
       email: "",
       password: "",
       message: "",
-      errors: []
+      errormsgs: []
     };
   },
   methods: {
@@ -2029,16 +2029,21 @@ __webpack_require__.r(__webpack_exports__);
       this.message = "";
       this.errors = [];
       window.axios["default"].get("/sanctum/csrf-cookie").then(function (response) {
-        window.axios["default"].post("/api/login", {
+        window.axios["default"].post("/api/token", {
           email: _this.email,
           password: _this.password
         }).then(function (response) {
-          console.info(response.data.user);
+          console.info(response.data);
+          localStorage.setItem("auth", response.data.token);
+
+          _this.$router.push({
+            name: 'dashboard'
+          });
         })["catch"](function (errors) {
           _this.message = errors.response.data.message;
 
           for (var key in errors.response.data.errors) {
-            _this.errors.push(errors.response.data.errors[key][0]);
+            _this.errormsgs.push(errors.response.data.errors[key][0]);
           }
         });
       });

@@ -52,7 +52,7 @@ export default {
       email: "",
       password: "",
       message: "",
-      errors: [],
+      errormsgs: [],
 
     };
   },
@@ -66,17 +66,23 @@ export default {
 
       window.axios.default.get("/sanctum/csrf-cookie").then((response) => {
 
-				window.axios.default.post("/api/login", {email: this.email, password: this.password}).then(response => {
+				window.axios.default.post("/api/token", {
+					email: this.email, 
+					password: this.password
+				
+				}).then(response => {
 					
-					console.info(response.data.user);
+					console.info(response.data);
+
+					localStorage.setItem("auth", response.data.token);
+					this.$router.push({ name: 'dashboard' })
 
 				}).catch(errors => {
 
 					this.message = errors.response.data.message;
 
 					for(let key in errors.response.data.errors) {
-
-						this.errors.push(errors.response.data.errors[key][0]);
+						this.errormsgs.push(errors.response.data.errors[key][0]);
 					}
 				});
 
